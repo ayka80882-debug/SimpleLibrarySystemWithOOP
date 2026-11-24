@@ -28,7 +28,7 @@ class Library:
 
     def showStudents(self):
         if not self.students:
-            print("There are no books.")
+            print("There are no students.")
             return
         
         for student in self.students:
