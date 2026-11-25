@@ -35,9 +35,49 @@ class Library:
             student.showInfo()
             print("----------------------")
 
+    def searchBook(self, bookID):
+        for book in self.books:
+            if book.bookID == bookID:
+                return book
+        return 
 
 
-    # def searchBook(self, bookID):
-    # def searchStudent(self, studentID):
-    # def borrowBook(self, studentID, bookID):
-    # def returnBook(self, studentID, bookID):
+    def searchStudent(self, studentID):
+        for student in self.students:
+            if student.studentID == studentID:
+                return student
+        return 
+
+
+    def borrowBook(self, studentID, bookID):
+        student = self.searchStudent(studentID)
+        book = self.searchBook(bookID)
+
+        if student is None or book is None:
+            print("Student or book not found.")
+            return
+
+        if book.isBorrowed:
+            print("This book is already borrowed.")
+            return
+
+        book.isBorrowed = True
+        student.borrowedBooks.append(book)
+        print("Book borrowed.")
+
+
+    def returnBook(self, studentID, bookID):
+        student = self.searchStudent(studentID)
+        book = self.searchBook(bookID)
+
+        if student is None or book is None:
+            print("Student or book not found.")
+            return
+
+        if book not in student.borrowedBooks:
+            print("This student did not borrow this book.")
+            return
+
+        book.isBorrowed = False
+        student.borrowedBooks.remove(book)
+        print("Book returned.")
